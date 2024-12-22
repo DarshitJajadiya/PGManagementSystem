@@ -1,5 +1,4 @@
 import React from 'react';
-import './HeaderFooter.css';
 
 function Modal({ children, onClose }) {
   return (

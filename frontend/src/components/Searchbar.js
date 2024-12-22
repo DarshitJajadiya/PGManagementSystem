@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './HeaderFooter.css';    
 function SearchBar() {
   const [query, setQuery] = useState('');
 

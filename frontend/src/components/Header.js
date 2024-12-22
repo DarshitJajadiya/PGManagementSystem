@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import LoginForm from './LoginForm';  
-import SignUpForm from './SignUpForm';  
+import React, { useContext } from 'react';
+import LoginForm from '../pages/LoginForm';
+import SignUpForm from '../pages/SignUpForm';
 import Modal from './Modal';
-import './HeaderFooter.css';
+import AuthContext from '../context/AuthContext';
 
 function Header() {
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+  const [isLoginModalOpen, setLoginModalOpen] = React.useState(false);
+  const [isSignUpModalOpen, setSignUpModalOpen] = React.useState(false);
 
   const openLoginModal = () => setLoginModalOpen(true);
   const closeLoginModal = () => setLoginModalOpen(false);
-
   const openSignUpModal = () => setSignUpModalOpen(true);
   const closeSignUpModal = () => setSignUpModalOpen(false);
 
@@ -23,8 +23,17 @@ function Header() {
         <a href="#contact">Contact Us</a>
       </nav>
       <div className="auth-buttons">
-        <button onClick={openLoginModal}>Log In</button>
-        <button onClick={openSignUpModal}>Sign Up</button>
+        {user ? (
+          <>
+            <span>Welcome, {user.name}</span>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <button onClick={openLoginModal}>Log In</button>
+            <button onClick={openSignUpModal}>Sign Up</button>
+          </>
+        )}
       </div>
 
       {isLoginModalOpen && (

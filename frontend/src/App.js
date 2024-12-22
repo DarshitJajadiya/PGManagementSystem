@@ -1,13 +1,20 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homemain from './mainpage/Homemain';
+import { AuthProvider } from './context/AuthContext';
+import { PGProvider } from './context/PgContext';
+
 function App() {
   return (
-    <Router> 
-      <Routes> 
-        <Route path="/" element={<Homemain />} /> 
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <PGProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Homemain />} />
+          </Routes>
+        </Router>
+      </PGProvider>
+    </AuthProvider>
   );
 }
 
