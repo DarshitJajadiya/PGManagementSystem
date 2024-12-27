@@ -38,8 +38,8 @@
 .login-btn,
 .signup-btn {
   padding: 10px 20px;
-  background-color: #28a745;
   color: white;
+  background-color: #007bff;
   border: none;
   border-radius: 5px;
   font-size: 1rem;
@@ -48,7 +48,7 @@
 }
 
 .login-btn:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 .signup-btn:hover {
@@ -350,5 +350,16 @@
       flex-direction: column;
       gap: 5px;
   }
+}
+
+
+select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
 }
 

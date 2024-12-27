@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-
 function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('user'); // Default role is 'user'
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -19,7 +19,7 @@ function Signup() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, role }), // Include role in the request
       });
 
       const data = await response.json();
@@ -65,6 +65,19 @@ function Signup() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        
+        {/* Dropdown for role selection */}
+        <label htmlFor="role">Role</label>
+        <select
+          id="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          required
+        >
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
         <button type="submit">Sign Up</button>
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}

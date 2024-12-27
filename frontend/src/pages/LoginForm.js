@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-function Login() {
+import React, { useState, useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+
+function LoginForm({ close }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,23 +14,11 @@ function Login() {
     setSuccess('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
-      setSuccess('Login successful!');
-      // Redirect or close modal
+      await login(email, password);
+      setSuccess('Successfully logged in!');
+        close(); 
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 
@@ -61,4 +52,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginForm;

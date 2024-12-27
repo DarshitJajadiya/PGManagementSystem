@@ -3,10 +3,11 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // User state
+axios.defaults.baseURL = 'http://localhost:5000'; // Set base URL for axios
 
-  // Check for token on app load
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -18,9 +19,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await axios.post('/api/auth/login', { email, password });
-    localStorage.setItem('token', res.data.token);
-    setUser(res.data.user);
+    try {
+      const res = await axios.post('/api/login', { email, password});
+      localStorage.setItem('token', res.data.token);
+      setUser(res.data.user);
+
+    } catch (err) {
+      throw err; 
+    }
   };
 
   const logout = () => {
