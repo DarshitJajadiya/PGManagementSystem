@@ -66,7 +66,6 @@ function Signup() {
           required
         />
         
-        {/* Dropdown for role selection */}
         <label htmlFor="role">Role</label>
         <select
           id="role"

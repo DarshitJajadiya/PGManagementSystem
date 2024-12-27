@@ -5,12 +5,15 @@ const router = express.Router();
 
 router.post('/api/pg/add', async (req, res) => {
   try {
-    const { name, location, price} = req.body;
+    const { name, location, price,amenities,images,description} = req.body;
 
     const newPG = new PG({
       name,
       location,
       price,
+      amenities,
+      images,
+      description,  
     });
 
     await newPG.save();

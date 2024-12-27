@@ -29,28 +29,63 @@ const AddPGForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Name</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        <label htmlFor="pg-name">Name</label>
+        <input
+          id="pg-name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
       </div>
       <div>
-        <label>Location</label>
-        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
+        <label htmlFor="pg-location">Location</label>
+        <input
+          id="pg-location"
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          required
+        />
       </div>
       <div>
-        <label>Price</label>
-        <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
+        <label htmlFor="pg-price">Price</label>
+        <input
+          id="pg-price"
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          required
+        />
       </div>
       <div>
-        <label>Amenities</label>
-        <input type="text" value={amenities} onChange={(e) => setAmenities(e.target.value)} placeholder="Comma separated" required />
+        <label htmlFor="pg-amenities">Amenities</label>
+        <input
+          id="pg-amenities"
+          type="text"
+          value={amenities}
+          onChange={(e) => setAmenities(e.target.value)}
+          placeholder="Comma separated"
+          required
+        />
       </div>
       <div>
-        <label>Images (URLs)</label>
-        <input type="text" value={images} onChange={(e) => setImages(e.target.value)} placeholder="Comma separated" />
+        <label htmlFor="pg-images">Images (URLs)</label>
+        <input
+          id="pg-images"
+          type="text"
+          value={images}
+          onChange={(e) => setImages(e.target.value)}
+          placeholder="Comma separated"
+        />
       </div>
       <div>
-        <label>Description</label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+        <label htmlFor="pg-description">Description</label>
+        <textarea
+          id="pg-description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
       </div>
       <button type="submit">Add PG</button>
     </form>

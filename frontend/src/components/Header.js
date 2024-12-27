@@ -30,7 +30,6 @@ function Header() {
         {user ? (
           <>
             <span className="login-btn">Welcome, {user.name}</span>
-            <p>{user.role}</p>
             <button onClick={logout}>Logout</button>
             {/* Add PG button visible only to admins or logged-in users */}
             {user.role === 'admin' && (
@@ -62,7 +61,7 @@ function Header() {
       {/* Add PG Modal */}
       {isAddPGModalOpen && (
         <Modal onClose={closeAddPGModal}>
-          <AddPGForm /> {/* Add PG Form */}
+          <AddPGForm />
         </Modal>
       )}
     </header>
