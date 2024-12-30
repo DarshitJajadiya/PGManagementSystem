@@ -7,7 +7,7 @@ export const PGProvider = ({ children }) => {
   const [filters, setFilters] = useState({ location: '', priceRange: [0, 1000] }); // Filters
 
   const fetchPGData = async () => {
-    const res = await fetch('/api/pg');
+    const res = await fetch('http://localhost:5000/api/pg');
     const data = await res.json();
     setPGData(data);
   };

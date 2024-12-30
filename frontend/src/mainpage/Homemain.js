@@ -8,7 +8,7 @@ const Homemain = () => {
   <>
     <Header />
     <Homepage />
-    <Footer />
+    {/* <Footer /> */}
 
   </>
   )

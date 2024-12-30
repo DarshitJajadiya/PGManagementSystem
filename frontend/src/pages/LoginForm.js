@@ -6,6 +6,7 @@ function LoginForm({ close }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showPopup, setShowPopup] = useState(false); // State for pop-up visibility
   const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
@@ -16,7 +17,11 @@ function LoginForm({ close }) {
     try {
       await login(email, password);
       setSuccess('Successfully logged in!');
-        close(); 
+      setShowPopup(true); // Show the pop-up
+      setTimeout(() => {
+        setShowPopup(false); // Hide the pop-up after 3 seconds
+        close(); // Close the login form
+      }, 3000);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
@@ -48,6 +53,13 @@ function LoginForm({ close }) {
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
       </form>
+
+      {/* Pop-up Notification */}
+      {showPopup && (
+        <div className="popup">
+          <p>{success}</p>
+        </div>
+      )}
     </div>
   );
 }

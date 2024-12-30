@@ -5,7 +5,7 @@ import connectDB from './config/db.js';
 import authRoutes from './router/auth.js';
 import searchRoutes from './router/searchauth.js';
 import addpgRoutes from './router/addpg.js';
-
+import pgdata from './router/pgdata.js'
 
 dotenv.config();
 connectDB();
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(authRoutes);
 app.use(searchRoutes); 
 app.use(addpgRoutes); 
-
+app.use(pgdata);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

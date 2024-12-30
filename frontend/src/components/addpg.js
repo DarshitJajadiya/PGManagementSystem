@@ -27,7 +27,9 @@ const AddPGForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="auth-modal">
+      <h2>Add PG Details</h2>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="pg-name">Name</label>
         <input
@@ -85,10 +87,13 @@ const AddPGForm = () => {
           id="pg-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          height="100"
+          width="100"
         />
       </div>
       <button type="submit">Add PG</button>
     </form>
+    </div>
   );
 };
 

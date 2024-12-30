@@ -1,10 +1,19 @@
 /* General Styles */
+/* *{
+  margin: 0;
+  padding: 0;
+} */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    /* background-color: #f4f4f4; */
     color: #333;
-  }
+    background-image: url('../img/hd.jpg');
+    /* background-repeat: no-repeat; */
+    background-size: cover; /* Scale the image to cover the entire background */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-attachment: fixed;  }
   
   a {
     text-decoration: none;
@@ -12,25 +21,36 @@ body {
   }
   
   /* Hero Section */
-  .hero {
+  /* .hero {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 60px 20px;
-    background-color: #007bff;
     color: white;
-  }
+  } */
   
-  .hero h2 {
-    font-size: 2.5rem;
+   .hero h1 {
+    font-size: 10rem;
+    font-family:'britannic bold';
+    margin-bottom:0;
+    color:white;
+    margin-left: 10rem;
+  }
+  h2 {
+    font-size: 5rem;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 0;
     margin-bottom: 10px;
+    color: white;
+    margin-left: 10rem;
+
+
   }
-  
   .hero p {
     font-size: 1.2rem;
     margin-bottom: 20px;
+    color: white;
   }
   
   .hero button {
@@ -50,7 +70,7 @@ body {
   /* Features Section */
   .features {
     padding: 40px 20px;
-    background-color: white;
+    /* background-color: white; */
   }
   
   .features h3 {

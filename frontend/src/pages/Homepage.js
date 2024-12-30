@@ -1,28 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // For navigation
 import Searchbar from '../components/Searchbar';
 import './Homepage.css';
 import RoomCard from '../components/RoomCard';
 import PGContext from '../context/PgContext';
 
 function Homepage() {
-  const { pgData, fetchPGData } = useContext(PGContext); // Using PGContext
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
-
-  // Fetch PG data on component mount
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await fetchPGData();
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to load PG data. Please try again later.');
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [fetchPGData]);
+  const { pgData } = useContext(PGContext); // Access PG data from context
+  const navigate = useNavigate(); // Hook for navigation
+  const [loading, setLoading] = useState(false); // Loading state
 
   const features = [
     { title: 'Spacious Rooms', description: 'Fully furnished rooms with all amenities.' },
@@ -30,28 +16,37 @@ function Homepage() {
     { title: 'Prime Location', description: 'Located near top colleges and transportation hubs.' },
   ];
 
+  const handleExploreMore = () => {
+    setLoading(true);
+    navigate('/pg-details'); // Navigate to PG details page
+    setLoading(false);
+  };
+
   return (
     <div className="homepage">
       {/* Hero Section */}
       <section className="hero">
         <Searchbar />
-        <h2>Welcome to PG</h2>
+        <h1>Welcome </h1> 
+        <h2>Vidyashram PG</h2>
         <p>Comfortable, affordable, and student-friendly accommodation.</p>
-        <button>Explore More</button>
+        <button onClick={handleExploreMore} disabled={loading}>
+          {loading ? 'Loading...' : 'Explore More'}
+        </button>
       </section>
 
-      {/* Room Cards */}
+      {/* {
+      Room Cards
       <div className="cards">
-        {loading ? (
-          <p>Loading rooms...</p>
-        ) : error ? (
-          <p className="error">{error}</p>
-        ) : (
-          pgData.map((room, index) => (
-            <RoomCard key={index} name={room.name} price={room.price} image={room.image} />
+        {pgData && pgData.length > 0 ? (
+          pgData.slice(0, 3).map((room, index) => (
+            <RoomCard key={index} name={room.name} price={room.price} image={room.images} />
           ))
+        ) : (
+          <p>No PGs available at the moment.</p>
         )}
-      </div>
+      </div> 
+      } */}
 
       {/* Features Section */}
       <section id="features" className="features">

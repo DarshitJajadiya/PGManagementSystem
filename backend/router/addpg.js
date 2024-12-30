@@ -1,4 +1,3 @@
-// routes/pgRoutes.js
 import express from 'express';
 import PG from '../model/pg.js';
 const router = express.Router();

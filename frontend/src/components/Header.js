@@ -58,7 +58,6 @@ function Header() {
         </Modal>
       )}
 
-      {/* Add PG Modal */}
       {isAddPGModalOpen && (
         <Modal onClose={closeAddPGModal}>
           <AddPGForm />
