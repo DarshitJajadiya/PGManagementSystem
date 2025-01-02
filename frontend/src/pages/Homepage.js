@@ -1,9 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect,useRef} from 'react';
 import { useNavigate } from 'react-router-dom'; // For navigation
 import Searchbar from '../components/Searchbar';
 import './Homepage.css';
 import RoomCard from '../components/RoomCard';
 import PGContext from '../context/PgContext';
+import About from '../components/about';
+import gsap from 'gsap';
+
 
 function Homepage() {
   const { pgData } = useContext(PGContext); // Access PG data from context
@@ -15,6 +18,57 @@ function Homepage() {
     { title: 'Healthy Meals', description: 'Nutritious and delicious meals served daily.' },
     { title: 'Prime Location', description: 'Located near top colleges and transportation hubs.' },
   ];
+  const welcomeRef = useRef(null);
+  const subtitleRef = useRef(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline({ repeat: -1 }); // Infinite loop with repeat: -1
+    tl.fromTo(
+      welcomeRef.current,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.8,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.5,
+        ease: "power3.out",
+      }
+    )
+      .to(welcomeRef.current, {
+        opacity: 0,
+        y: -50,
+        duration: 1.5,
+        ease: "power3.in",
+      })
+      .fromTo(
+        subtitleRef.current,
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=2" // Overlap timing by 1 second
+      )
+      .to(subtitleRef.current, {
+        opacity: 0,
+        y: -50,
+        duration: 1,
+        ease: "power3.in",
+      });
+
+    return () => {
+      tl.kill(); // Clean up GSAP animations when the component unmounts
+    };
+  }, []);
 
   const handleExploreMore = () => {
     setLoading(true);
@@ -27,17 +81,16 @@ function Homepage() {
       {/* Hero Section */}
       <section className="hero">
         <Searchbar />
-        <h1>Welcome </h1> 
-        <h2>Vidyashram PG</h2>
+        <h1 ref={welcomeRef}>Welcome </h1> 
+        <h2 ref={subtitleRef} id="subtitle">Vidyashram PG</h2>
         <p>Comfortable, affordable, and student-friendly accommodation.</p>
-        <button onClick={handleExploreMore} disabled={loading}>
-          {loading ? 'Loading...' : 'Explore More'}
+        <button onClick={handleExploreMore} disabled={loading} id="explore">
+          {loading ? 'Loading...' : 'Explore PGs'}
         </button>
       </section>
 
-      {/* {
-      Room Cards
-      <div className="cards">
+   
+      {/* <div className="cards">
         {pgData && pgData.length > 0 ? (
           pgData.slice(0, 3).map((room, index) => (
             <RoomCard key={index} name={room.name} price={room.price} image={room.images} />
@@ -45,10 +98,11 @@ function Homepage() {
         ) : (
           <p>No PGs available at the moment.</p>
         )}
-      </div> 
-      } */}
+      </div>  */}
+      
+                <About />
 
-      {/* Features Section */}
+
       <section id="features" className="features">
         <h3>Why Choose Us?</h3>
         <div className="feature-cards">
@@ -58,8 +112,16 @@ function Homepage() {
               <p>{feature.description}</p>
             </div>
           ))}
+
         </div>
       </section>
+
+
+
+
+
+
+
     </div>
   );
 }

@@ -1,9 +1,5 @@
-/* Header */
-body{
-  /* background-image: url('img/bg.jpg'); */
-}
+
 .header {
-  background-color: rgb(127, 123, 123);
   color: white;
   padding: 20px;
   display: flex;
@@ -52,6 +48,7 @@ body{
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 
 .login-btn:hover {
   background-color: #0056b3;
@@ -105,14 +102,17 @@ body{
 /* Search Bar */
 .search-bar {
   display: flex;
+  position: sticky;
+  top: 0;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   margin-top: 20px;
+
 }
 
 .search-bar input {
-  width: 60%;
+  width: 20%;
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -122,7 +122,7 @@ body{
 
 .search-bar button {
   padding: 10px 15px;
-  /* background-color: #007bff; */
+  background-color: #ffcc00;
   color: white;
   border: none;
   border-radius: 5px;
@@ -415,9 +415,10 @@ select {
 
 /* Title Styling */
 .results-title {
-  color: #007bff;
+  color: white;
   margin-bottom: 20px;
   font-size: 1.8rem;
+  
 }
 
 /* Results Container */
@@ -452,7 +453,7 @@ select {
 /* PG Details Styling */
 .pg-name {
   font-weight: bold;
-  color: #007bff;
+  color: white;
   font-size: 1.2rem;
 }
 
@@ -469,7 +470,7 @@ select {
 
 /* No Results Message */
 .no-results {
-  color: #555;
+  color: white;
   font-size: 1.2rem;
   margin-top: 20px;
 }
@@ -497,7 +498,7 @@ select {
 /* General Page Styling */
 .pg-details-page {
   font-family: 'Arial', sans-serif;
-  color: #333;
+  color:white;
   text-align: center;
   padding: 20px;
   background-size: cover;
@@ -510,7 +511,7 @@ select {
 
 /* Heading Styling */
 .pg-details-page h1 {
-  font-size: 2.5rem;
+  font-size: 4rem;
   margin-bottom: 20px;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -519,6 +520,129 @@ select {
   display: flex;
   justify-content: center;
   gap: 20px;
+}
+.pg-details-page>.error{
+  font-size: 2rem;
+  color: white;
+}
+
+.about-page {
+  background-size: cover;
+  background-position: center;
+  color: white;
+margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.about-content {
+  background: rgba(0, 0, 0, 0.589); 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 70%;
+  height: 50%;
+}
+
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-decoration: underline;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Modal container styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Contact Us form styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  gap: 15px;
+}
+
+.contact-form label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color:black;
+  font-weight: bold;
+}
+
+.contact-head{
+  color: black;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+
+}
+
+.contact-form input,
+.contact-form textarea {
+  color: #000;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.contact-form button:hover {
+  background-color: #0056b3;
 }
 
 

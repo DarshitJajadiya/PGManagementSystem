@@ -17,6 +17,17 @@ app.use(authRoutes);
 app.use(searchRoutes); 
 app.use(addpgRoutes); 
 app.use(pgdata);
+app.use('/uploads', express.static('uploads'));
+
+
+
+
+
+
+
+
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -19,9 +19,9 @@ function LoginForm({ close }) {
       setSuccess('Successfully logged in!');
       setShowPopup(true); // Show the pop-up
       setTimeout(() => {
-        setShowPopup(false); // Hide the pop-up after 3 seconds
-        close(); // Close the login form
-      }, 3000);
+        setShowPopup(false); 
+        close();
+      }, 1000);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }

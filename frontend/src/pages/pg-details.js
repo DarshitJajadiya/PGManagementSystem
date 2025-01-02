@@ -18,7 +18,6 @@ function PGDetailsPage() {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [fetchPGData]);
 
@@ -32,7 +31,13 @@ function PGDetailsPage() {
       ) : pgData && pgData.length > 0 ? (
         <div className="pg-list">
           {pgData.map((room, index) => (
-            <RoomCard key={index} name={room.name} price={room.price} image={room.images} />
+            <RoomCard 
+            key={index} 
+            name={room.name} 
+            price={room.price} 
+            image={room.images[0]} 
+            
+            />
           ))}
         </div>
       ) : (
