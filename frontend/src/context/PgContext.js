@@ -10,6 +10,7 @@ export const PGProvider = ({ children }) => {
     const res = await fetch('http://localhost:5000/api/pg');
     const data = await res.json();
     setPGData(data);
+    return data;
   };
 
   return (

@@ -7,7 +7,7 @@ function PGDetailsPage() {
   const { pgData, fetchPGData } = useContext(PGContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+//useeffect run only once
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,7 +19,8 @@ function PGDetailsPage() {
       }
     };
     fetchData();
-  }, [fetchPGData]);
+
+  }, []);
 
   return (
     <div className="pg-details-page">

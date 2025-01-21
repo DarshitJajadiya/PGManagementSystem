@@ -22,19 +22,27 @@ const AddPGForm = () => {
     e.preventDefault();
 
     const formData = new FormData();
+    if(name==='' || location==='' || price==='' || amenities==='' || images.length===0 || description===''){ 
+      alert('Please fill all the fields');
+      return;
+    } 
     formData.append('name', name);
     formData.append('location', location);
     formData.append('price', price);
     formData.append('amenities', amenities.split(','));
     formData.append('description', description);
-    images.forEach((image) => formData.append('images', image)); // Append multiple files
+    images.forEach((image) => formData.append('images', image)); 
 
     try {
-      const response = await axios.post('/api/pg/add', formData, {
+      const response = await axios.post('http://localhost:5000/api/pg/add', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+      
+
+    
       alert('PG added successfully');
     } catch (error) {
       alert('Error adding PG');

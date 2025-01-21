@@ -15,22 +15,20 @@ const storage = multer.diskStorage({
   },
 });
 
-// const fileFilter = (req, file, cb) => {
-//   if (file.mimetype.startsWith('image/')) {
-//     cb(null, true); 
-//     cb(new Error('Only image files are allowed!'), false); 
-  // }
-// };
-
 const upload = multer({
   storage,
-  // fileFilter,
   limits: { fileSize: 5 * 1024 * 1024 }, 
 });
+
 
 router.post('/api/pg/add', upload.array('images', 5), async (req, res) => {
   try {
     const { name, location, price, amenities, description } = req.body;
+  
+  const pgExists = await PG.findOne({ name });
+    if (pgExists) {
+      return res.status(400).json({ message: 'PG already exists' });
+    }
 
     const imagePaths = req.files.map((file) => path.join('uploads', file.filename));
 

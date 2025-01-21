@@ -38,7 +38,6 @@ function Header() {
           <>
             <span className="login-btn">Welcome, {user.name}</span>
             <button onClick={logout}>Logout</button>
-            {/* Add PG button visible only to admins or logged-in users */}
             {user.role === 'admin' && (
               <button onClick={openAddPGModal}>Add PG</button>
             )}

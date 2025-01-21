@@ -10,6 +10,7 @@ import pgdata from './router/pgdata.js'
 dotenv.config();
 connectDB();
 
+
 const app = express();
 app.use(cors());
 app.use(express.json()); 
@@ -18,14 +19,6 @@ app.use(searchRoutes);
 app.use(addpgRoutes); 
 app.use(pgdata);
 app.use('/uploads', express.static('uploads'));
-
-
-
-
-
-
-
-
 
 
 const PORT = process.env.PORT || 5000;
