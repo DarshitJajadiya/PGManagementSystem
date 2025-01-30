@@ -624,7 +624,64 @@ margin-top: 25px;
   background-color: #0056b3;
 }
 
+/* profile page */
+.profile-page {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color:black;
+  background-color: #2e7dd174;
+}
 
+
+.profile-page h1 {
+  text-align: center;
+
+}
+
+.profile-page p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+
+ /* booking page */
+ .booking-page {
+  padding: 20px;
+}
+
+.booking-page h2 {
+  margin-bottom: 20px;
+}
+
+.booking-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-page label {
+  margin-bottom: 5px;
+}
+
+.booking-page input {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.booking-page button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.booking-page button:hover {
+  background-color: #45a049;
+}
 
 
 

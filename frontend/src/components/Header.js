@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext} from 'react';
 import LoginForm from '../pages/LoginForm';
 import SignUpForm from '../pages/SignUpForm';
 import Modal from './Modal';
 import AuthContext from '../context/AuthContext';
 import AddPGForm from '../components/addpg';
 import ContactUsModal from '../components/contactus';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const { user, logout } = useContext(AuthContext);
@@ -25,6 +26,12 @@ function Header() {
   const openContactUsModal = () => setContactUsModalOpen(true); // Open Contact Us modal
   const closeContactUsModal = () => setContactUsModalOpen(false); // Close Contact Us modal
 
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    navigate('/profile'); // Navigate to the profile page
+  };
+  
   return (
     <header className="header">
       <h1>Vidyashram PG</h1>
@@ -36,7 +43,7 @@ function Header() {
       <div className="auth-buttons">
         {user ? (
           <>
-            <span className="login-btn">Welcome, {user.name}</span>
+            <span className="login-btn" onClick={handleProfileClick}>Welcome, {user.name}</span>
             <button onClick={logout}>Logout</button>
             {user.role === 'admin' && (
               <button onClick={openAddPGModal}>Add PG</button>

@@ -37,7 +37,7 @@ function PGDetailsPage() {
             name={room.name} 
             price={room.price} 
             image={room.images[0]} 
-            
+            location={room.location}
             />
           ))}
         </div>
