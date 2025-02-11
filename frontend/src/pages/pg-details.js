@@ -1,14 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RoomCard from '../components/RoomCard';
 import PGContext from '../context/PgContext';
-
-
+import AuthContext from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 function PGDetailsPage() {
   const { pgData, fetchPGData } = useContext(PGContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-//useeffect run only once
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (!user) {
+      navigate('/');
+      return;
+    }
     const fetchData = async () => {
       try {
         await fetchPGData();
@@ -20,7 +26,7 @@ function PGDetailsPage() {
     };
     fetchData();
 
-  }, []);
+  }, [user, navigate, fetchPGData]);
 
   return (
     <div className="pg-details-page">
@@ -34,9 +40,10 @@ function PGDetailsPage() {
           {pgData.map((room, index) => (
             <RoomCard 
             key={index} 
+            id={room._id}
             name={room.name} 
             price={room.price} 
-            image={room.images[0]} 
+            image={room.images} 
             location={room.location}
             />
           ))}

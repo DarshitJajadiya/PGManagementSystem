@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import AuthContext from '../context/AuthContext';
 
 const AddPGForm = () => {
   const [name, setName] = useState('');
@@ -9,9 +10,10 @@ const AddPGForm = () => {
   const [images, setImages] = useState([]); 
   const [imagePreviews, setImagePreviews] = useState([]);
   const [description, setDescription] = useState('');
+  const { user } = useContext(AuthContext);
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files); 
+    const files = Array.from(e.target.files);
     setImages(files);
 
     const previews = files.map((file) => URL.createObjectURL(file));
@@ -21,17 +23,24 @@ const AddPGForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    if(name==='' || location==='' || price==='' || amenities==='' || images.length===0 || description===''){ 
+    if (!user) {
+      alert('You must be logged in to add a PG');
+      return;
+    }
+
+    if (name === '' || location === '' || price === '' || amenities === '' || images.length === 0 || description === '') { 
       alert('Please fill all the fields');
       return;
-    } 
+    }
+
+    const formData = new FormData();
     formData.append('name', name);
     formData.append('location', location);
     formData.append('price', price);
     formData.append('amenities', amenities.split(','));
     formData.append('description', description);
-    images.forEach((image) => formData.append('images', image)); 
+    formData.append('owner', user.id); // Add the logged-in user's ID as the owner
+    images.forEach((image) => formData.append('images', image));
 
     try {
       const response = await axios.post('http://localhost:5000/api/pg/add', formData, {
@@ -39,10 +48,7 @@ const AddPGForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-      
 
-    
       alert('PG added successfully');
     } catch (error) {
       alert('Error adding PG');
@@ -101,7 +107,7 @@ const AddPGForm = () => {
             type="file"
             onChange={handleImageChange}
             accept="image/*"
-            multiple // Allow multiple file selection
+            multiple
             required
           />
         </div>

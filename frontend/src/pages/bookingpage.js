@@ -1,72 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useBooking } from '../context/bookingContext'; // Import the context hook
+import axios from 'axios';
+import AuthContext from '../context/AuthContext';
 
 function BookingPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { closeBookingModal } = useBooking();
-  
+  const { user } = useContext(AuthContext);  // Access user from AuthContext
+  const { pgId, name,price, location: pgLocation} = location.state;
+
   const [bookingDetails, setBookingDetails] = useState({
     name: '',
     contact: '',
+    checkInDate: '',
+    duration: '',
   });
 
-  const room = location.state?.room; // Get room data passed via React Router
-
-  useEffect(() => {
-    if (!room) {
-      navigate('/'); // Redirect to home page if no room data is available
-    }
-  }, [room, navigate]);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBookingDetails({
-      ...bookingDetails,
-      [name]: value,
-    });
+    setBookingDetails({ ...bookingDetails, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
-    // Handle booking logic (e.g., API call)
-    console.log('Booking details:', bookingDetails);
-    // Close the modal or navigate to a confirmation page
-    closeBookingModal();
-    navigate('/booking-confirmation'); // Navigate to a confirmation page
-  };
+    if (!user) {
+      alert('Please login to book a room');
+      return;
+    }
+    try {
+      const response = await axios.post('http://localhost:5000/api/bookings', {
+        userId: user.id,  
+        pgId: location.state.id,
+        checkInDate: bookingDetails.checkInDate,
+        duration: bookingDetails.duration,
+        price:location.state.price,
+      });
 
-  if (!room) return null;
+      if (response.data.success) {
+        navigate('/payment', { state: { bookingId: response.data.bookingId, amount: price } });
+      }
+    } catch (error) {
+      console.error('Booking failed:', error);
+    }
+  };
 
   return (
     <div className="booking-page">
-      <h2>Booking for {room.name}</h2>
-      <p>Location: {room.location}</p>
-      <p>Price: ₹{room.price} per month</p>
+      <h2>Booking for {name}</h2>
+      <p>Location: {pgLocation}</p>
+      <p>Price: ₹{price} per month</p>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Your Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={bookingDetails.name}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleBooking}>
+        <label>Your Name</label>
+        <input type="text" name="name" value={bookingDetails.name} onChange={handleChange} required />
 
-        <label htmlFor="contact">Contact Number</label>
-        <input
-          type="text"
-          id="contact"
-          name="contact"
-          value={bookingDetails.contact}
-          onChange={handleChange}
-          required
-        />
+        <label>Contact Number</label>
+        <input type="text" name="contact" value={bookingDetails.contact} onChange={handleChange} required />
 
-        <button type="submit">Confirm Booking</button>
+        <label>Check-in Date</label>
+        <input type="date" name="checkInDate" value={bookingDetails.checkInDate} onChange={handleChange} required />
+
+        <label>Duration (months)</label>
+        <input type="number" name="duration" value={bookingDetails.duration} onChange={handleChange} required />
+
+        <button type="submit">Proceed to Payment</button>
       </form>
     </div>
   );

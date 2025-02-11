@@ -1,16 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { useBooking } from '../context/bookingContext'; // Import the useBooking hook
+import React, { use } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
-function RoomCard({ id, name, price, image, location }) {
+function RoomCard({ id,name, price, image, location }) {
   const navigate = useNavigate();
-  const { openBookingModal } = useBooking(); // Access the openBookingModal function from context
-  const imageUrl = `http://localhost:5000/${image}`;
+  const imageUrl = `http://localhost:5000/uploads/${image}`;
+  const {user} =use(AuthContext);
 
-  // Function to handle booking
-  const handleBookNow = () => {
-    // Navigate to the booking page and pass the room data
-    navigate('/booking', { state: { room: { id, name, price, location, image } } });
+  const handleBooking = () => {
+    if(!user){
+      alert('Please login to book a room');
+      return;
+    }
+    navigate('/booking', { state: { id,name, price, location } });
   };
 
   return (
@@ -19,9 +21,7 @@ function RoomCard({ id, name, price, image, location }) {
       <h3>{name}</h3>
       <p>{location}</p>
       <p>Price: ₹{price} per month</p>
-      <button className="book-now-btn" onClick={handleBookNow}>
-        Book Now
-      </button>
+      <button className="book-now-btn" onClick={handleBooking}>Book Now</button>
     </div>
   );
 }

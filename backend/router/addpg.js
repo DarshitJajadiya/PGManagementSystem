@@ -19,26 +19,25 @@ const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 }, 
 });
-
-
 router.post('/api/pg/add', upload.array('images', 5), async (req, res) => {
   try {
-    const { name, location, price, amenities, description } = req.body;
-  
-  const pgExists = await PG.findOne({ name });
+    const { name, location, price, amenities, description, owner } = req.body; // Extract owner
+
+    const pgExists = await PG.findOne({ name });
     if (pgExists) {
       return res.status(400).json({ message: 'PG already exists' });
     }
 
-    const imagePaths = req.files.map((file) => path.join('uploads', file.filename));
+    const imagePaths = req.files.map((file) => file.filename); // Store only filename
 
     const newPG = new PG({
       name,
       location,
       price,
-      amenities: amenities.split(','), // Convert amenities string to an array
-      images: imagePaths, // Store file paths of uploaded images
+      amenities: amenities.split(','), 
+      images: imagePaths, 
       description,
+      owner, // Assign the logged-in user's ID
     });
 
     await newPG.save();
@@ -48,5 +47,6 @@ router.post('/api/pg/add', upload.array('images', 5), async (req, res) => {
     res.status(500).json({ message: 'Error adding PG', error: error.message });
   }
 });
+
 
 export default router;

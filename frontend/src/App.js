@@ -9,6 +9,7 @@ import ProfilePage from './pages/profile';
 import { BookingProvider } from './context/bookingContext';
 import BookingPage from './pages/bookingpage';
 import BookingConfirmation from './pages/bookingconfirmationpage';
+import PaymentPage from './pages/payment';
 function App() {
   return (
     <AuthProvider>
@@ -20,9 +21,9 @@ function App() {
           <Route path="/results" element={<ResultsPage />} />
           <Route path="/pg-details" element={<PGDetailsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/booking" element={<BookingPage />} /> {/* Add route for BookingPage */}
-          <Route path="/booking-confirmation" element={<BookingConfirmation />} /> {/* Add route for BookingConfirmation */}
-
+          <Route path="/booking" element={<BookingPage />} /> 
+          <Route path="/booking-confirmation" element={<BookingConfirmation />} /> 
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
         </BookingProvider>
       </PGProvider>
