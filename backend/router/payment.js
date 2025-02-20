@@ -1,29 +1,47 @@
 import express from 'express';
-import Razorpay from 'razorpay';
-import dotenv from 'dotenv';
+import Booking from '../model/booking.js';
 
-dotenv.config();
 const router = express.Router();
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY,
-  key_secret: process.env.RAZORPAY_SECRET,
+// Dummy Payment API (Simulating Order Creation)
+router.post('/api/payments/order', async (req, res) => {
+  try {
+    const { amount, bookingId } = req.body;
+
+    // Simulate a fake order ID for the payment
+    const dummyOrder = {
+      id: `DUMMY_ORDER_${Date.now()}`,
+      amount,
+      currency: 'INR',
+      status: 'created',
+    };
+
+    res.json(dummyOrder);
+  } catch (error) {
+    res.status(500).json({ message: "Payment failed. Please try again." });
+  }
 });
 
-// 🎯 Create a payment order
-router.post('/order', async (req, res) => {
+// ✅ API to confirm payment and update booking status
+router.post('/api/payments/confirm', async (req, res) => {
   try {
-    const { amount } = req.body;
+    const { bookingId } = req.body;
 
-    const order = await razorpay.orders.create({
-      amount: amount * 100,  // Razorpay takes amount in paisa
-      currency: 'INR',
-      payment_capture: 1,
-    });
+    // Find and update the booking status in the database
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      bookingId,
+      { status: 'confirmed' },
+      { new: true }
+    );
 
-    res.json(order);
+    if (!updatedBooking) {
+      return res.status(404).json({ message: "Booking not found!" });
+    }
+
+    res.json({ success: true, message: "Payment successful! Booking confirmed.", booking: updatedBooking });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Payment Confirmation Error:", error);
+    res.status(500).json({ message: "Error confirming payment!" });
   }
 });
 

@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 
 function BookingPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);  // Access user from AuthContext
-  const { pgId, name,price, location: pgLocation} = location.state;
+  const { user } = useContext(AuthContext); // Access user from AuthContext
+
+  // Destructure the properties correctly
+  const { id, name, price, location: pgLocation } = location.state;
 
   const [bookingDetails, setBookingDetails] = useState({
     name: '',
@@ -16,30 +17,43 @@ function BookingPage() {
     duration: '',
   });
 
+  // Handle input field changes
   const handleChange = (e) => {
     setBookingDetails({ ...bookingDetails, [e.target.name]: e.target.value });
   };
 
+  // Handle booking form submission
   const handleBooking = async (e) => {
     e.preventDefault();
     if (!user) {
       alert('Please login to book a room');
       return;
     }
+
     try {
-      const response = await axios.post('http://localhost:5000/api/bookings', {
-        userId: user.id,  
-        pgId: location.state.id,
-        checkInDate: bookingDetails.checkInDate,
-        duration: bookingDetails.duration,
-        price:location.state.price,
+      // Send booking details with correct field names (pgsId instead of id)
+      console.log(user.id, id, bookingDetails.checkInDate, bookingDetails.duration, price);
+      const response = await fetch('http://localhost:5000/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user.id,
+          pgsId: id,  // Send pgsId as the correct field name
+          checkInDate: bookingDetails.checkInDate,
+          duration: bookingDetails.duration,
+          price,
+        }),
       });
 
-      if (response.data.success) {
-        navigate('/payment', { state: { bookingId: response.data.bookingId, amount: price } });
+      const data = await response.json();
+      if (data.success) {
+        navigate('/payment', { state: { bookingId: data.bookingId, amount: price } });
+      } else {
+        alert('Booking failed. Please try again.');
       }
     } catch (error) {
       console.error('Booking failed:', error);
+      alert('Booking could not be completed.');
     }
   };
 

@@ -7,7 +7,7 @@ import searchRoutes from './router/searchauth.js';
 import addpgRoutes from './router/addpg.js';
 import pgdata from './router/pgdata.js'
 import bookpg from './router/bookpg.js';
-// import payment from './router/payment.js';
+import payment from './router/payment.js';
 
 
 dotenv.config();
@@ -22,7 +22,7 @@ app.use(searchRoutes);
 app.use(addpgRoutes); 
 app.use(pgdata);
 app.use(bookpg);
-// app.use(payment);
+app.use(payment);
 
 app.use('/uploads', express.static('uploads'));
 

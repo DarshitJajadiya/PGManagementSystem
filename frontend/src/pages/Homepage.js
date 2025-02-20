@@ -2,11 +2,13 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; // For navigation
 import Searchbar from '../components/Searchbar';
 import './Homepage.css';
-import RoomCard from '../components/RoomCard';
 import PGContext from '../context/PgContext';
 import About from '../components/about';
 import gsap from 'gsap';
 import AuthContext from '../context/AuthContext';
+import BookedPGList from './bookedpglist';
+import listedpglist from './listedpglist';
+
 
 function Homepage() {
   const { pgData } = useContext(PGContext); // Access PG data from context
@@ -93,7 +95,11 @@ function Homepage() {
             {loading ? 'Loading...' : 'Explore PGs'}
           </button>
         )}
+         {/* <listedpglist /> */}
+        {/* <BookedPGList />  */}
       </section>
+
+
 
       {/* PG List (Commented out) */}
       {/* <div className="cards">

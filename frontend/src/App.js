@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import Homemain from './mainpage/Homemain';
 import { AuthProvider } from './context/AuthContext';
 import { PGProvider } from './context/PgContext';
 import ResultsPage from './pages/results';
@@ -10,6 +9,7 @@ import { BookingProvider } from './context/bookingContext';
 import BookingPage from './pages/bookingpage';
 import BookingConfirmation from './pages/bookingconfirmationpage';
 import PaymentPage from './pages/payment';
+import Homepage from './pages/Homepage';
 function App() {
   return (
     <AuthProvider>
@@ -17,7 +17,7 @@ function App() {
         <BookingProvider>
         <Header />
         <Routes>
-          <Route path="/" element={<Homemain />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/results" element={<ResultsPage />} />
           <Route path="/pg-details" element={<PGDetailsPage />} />
           <Route path="/profile" element={<ProfilePage />} />

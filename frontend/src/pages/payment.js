@@ -1,39 +1,46 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 function PaymentPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { bookingId, amount } = location.state;
-
-  useEffect(() => {
-    const loadRazorpay = async () => {
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.async = true;
-      document.body.appendChild(script);
-    };
-    loadRazorpay();
-  }, []);
+  const { bookingId, amount } = location.state || {};
 
   const handlePayment = async () => {
-    const response = await axios.post('http://localhost:5000/api/payments/order', { amount });
-    const options = {
-      key: 'YOUR_RAZORPAY_KEY',
-      amount: response.data.amount,
-      currency: 'INR',
-      name: 'Vidyashram PG',
-      description: 'PG Booking Payment',
-      order_id: response.data.id,
-      handler: function (paymentResponse) {
-        alert('Payment successful!');
-        navigate('/booking-confirmation', { state: { bookingId } });
-      },
-    };
+    try {
+      // Step 1: Create Payment Order
+      const response = await fetch('http://localhost:5000/api/payments/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount, bookingId }),
+      });
 
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+      const data = await response.json();
+      console.log(data);
+
+      if (data.id) {
+        // Step 2: Confirm Payment and Update Booking Status
+        const confirmResponse = await fetch('http://localhost:5000/api/payments/confirm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookingId }),
+        });
+
+        const confirmData = await confirmResponse.json();
+        
+        if (confirmData.success) {
+          alert('Payment successful! Your PG booking is now confirmed.');
+          navigate('/booking-confirmation', { state: { bookingId } });
+        } else {
+          alert('Payment was processed, but booking update failed.');
+        }
+      } else {
+        alert('Payment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Payment Error:', error);
+      alert('Payment failed due to a server issue.');
+    }
   };
 
   return (

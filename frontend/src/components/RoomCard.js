@@ -12,7 +12,9 @@ function RoomCard({ id,name, price, image, location }) {
       alert('Please login to book a room');
       return;
     }
+    // console.log(id);
     navigate('/booking', { state: { id,name, price, location } });
+
   };
 
   return (
