@@ -3,12 +3,10 @@ import Booking from '../model/booking.js';
 
 const router = express.Router();
 
-// Dummy Payment API (Simulating Order Creation)
 router.post('/api/payments/order', async (req, res) => {
   try {
     const { amount, bookingId } = req.body;
 
-    // Simulate a fake order ID for the payment
     const dummyOrder = {
       id: `DUMMY_ORDER_${Date.now()}`,
       amount,
@@ -22,12 +20,9 @@ router.post('/api/payments/order', async (req, res) => {
   }
 });
 
-// ✅ API to confirm payment and update booking status
 router.post('/api/payments/confirm', async (req, res) => {
   try {
     const { bookingId } = req.body;
-
-    // Find and update the booking status in the database
     const updatedBooking = await Booking.findByIdAndUpdate(
       bookingId,
       { status: 'confirmed' },

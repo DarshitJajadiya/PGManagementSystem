@@ -1,5 +1,6 @@
+
 import express from 'express';
-import Booking from '../model/Booking.js';
+import Booking from '../model/booking.js';
 
 const router = express.Router();
 
@@ -37,8 +38,9 @@ router.post('/api/bookings', async (req, res) => {
 // Get all bookings for a user
 router.get('/api/bookings/user/:userId', async (req, res) => {
   try {
+    console.log("Fetching bookings for user ID:", req.params.userId); // Log the userId being fetched
     const bookings = await Booking.find({ userId: req.params.userId }).populate('pgsId'); // Corrected here
-
+    console.log("Bookings found:", bookings.pgsId); // Log the bookings found
     if (!bookings.length) {
       return res.status(404).json({ success: false, message: "No bookings found for this user." });
     }
@@ -66,3 +68,4 @@ router.delete('/api/bookings/cancel/:bookingId', async (req, res) => {
   }
 });
 export default router;
+

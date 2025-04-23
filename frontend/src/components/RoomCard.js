@@ -2,7 +2,7 @@ import React, { use } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
-function RoomCard({ id,name, price, image, location }) {
+function RoomCard({ id,name, price, image, location,contact }) {
   const navigate = useNavigate();
   const imageUrl = `http://localhost:5000/uploads/${image}`;
   const {user} =use(AuthContext);
@@ -13,7 +13,7 @@ function RoomCard({ id,name, price, image, location }) {
       return;
     }
     // console.log(id);
-    navigate('/booking', { state: { id,name, price, location } });
+    navigate('/booking', { state: { id,name, price, location,contact }, replace: true });
 
   };
 
@@ -23,6 +23,7 @@ function RoomCard({ id,name, price, image, location }) {
       <h3>{name}</h3>
       <p>{location}</p>
       <p>Price: ₹{price} per month</p>
+      {/* <p>Owner: {contact}</p> */}
       <button className="book-now-btn" onClick={handleBooking}>Book Now</button>
     </div>
   );

@@ -620,6 +620,7 @@ margin-top: 25px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.2s ease-in-out;
+
 }
 
 .profile-page:hover {
@@ -660,6 +661,8 @@ margin-top: 25px;
 .pg-listings {
   margin-top: 20px;
   text-align: left;
+
+
 }
 
 .pg-listings h2 {
@@ -813,6 +816,157 @@ margin-top: 25px;
   margin-bottom: 25px;
 }
 
+/* Profile Page Styling */
+.profile-page {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.profile-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Owner Profile Card */
+.owner-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* PG Listings Section */
+.owner-listings {
+  margin-top: 20px;
+
+}
+
+/* PG Listing Grid */
+.pg-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* PG Card Styling */
+.owner-card {
+  background: white;
+  width: 280px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+
+  margin: 0 auto; /* Centers the box */
+}
+
+
+.owner-card:hover {
+  transform: translateY(-5px);
+}
+
+/* PG Image */
+.owner-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Booking Details */
+.owner-booking {
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* No Bookings Message */
+.owner-no-bookings {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+  margin-top: 20px;
+}
+
+.payment-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.payment-amount {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 25px;
+  color: #444;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.payment-input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s;
+}
+
+.payment-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.payment-button {
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.payment-button:hover {
+  background-color: #0056b3;
+}
+.payment-success {
+  text-align: center;
+  font-size: 18px;
+  color: #28a745;
+  margin-top: 20px;
+}
+.payment-error {
+  text-align: center;
+  font-size: 18px;
+  color: #dc3545;
+  margin-top: 20px;
+}
 
 
 

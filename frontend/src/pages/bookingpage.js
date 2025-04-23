@@ -47,7 +47,7 @@ function BookingPage() {
 
       const data = await response.json();
       if (data.success) {
-        navigate('/payment', { state: { bookingId: data.bookingId, amount: price } });
+        navigate('/payment', { state: { bookingId: data.bookingId, amount: price },replace: true });
       } else {
         alert('Booking failed. Please try again.');
       }
